@@ -1,13 +1,14 @@
-import express, { Request, Response } from "express";
+import express, { Application } from "express";
+import morgan from "morgan"
+import router from "./routes/taskRouter";
 
-const app = express();
+
+const app: Application= express();
 const port = 3000;
 
+app.use(morgan('dev'));
 app.use(express.json());
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, TypeScript with Express!");
-});
+app.use('api/task/v1', router );
 
 app.listen(port, () => {
   console.log("Server is running...");
